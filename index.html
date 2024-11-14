@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IP Information</title>
+  <style>
+    /* إعدادات الخلفية */
+    body {
+      margin: 0;
+      background-color: black;
+      color: #0047ab; /* لون النص الأزرق */
+      font-family: 'Courier New', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* إعدادات الصورة */
+    .image-container {
+      margin-bottom: 20px;
+      border: 3px solid #0047ab;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .image-container img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 10px;
+    }
+
+    /* إعدادات النص */
+    .info {
+      text-align: center;
+      color: #0047ab;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+
+    .discord-link {
+      font-size: 36px;  /* تم تكبير الحجم هنا */
+      color: #0047ab;
+      margin-top: 20px;
+      text-decoration: none;
+      font-weight: bold; /* لجعل النص أكثر وضوحًا */
+    }
+
+    /* خلفية النجوم */
+    .stars {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkling 1.5s infinite ease-in-out;
+    }
+
+    @keyframes twinkling {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- صورة -->
+  <div class="image-container">
+    <img src="https://media.discordapp.net/attachments/1305247639906025622/1306667445292892170/Screenshot_2024-11-10_203820.png?ex=67378063&is=67362ee3&hm=ea0faf688768fc0dc3dd35dac01c57d0102b5c91512d122dc5fe4910167fef77&=&format=webp&quality=lossless&width=305&height=313" alt="Banner Image">
+  </div>
+
+  <!-- معلومات IP والموقع -->
+  <div class="info" id="ip-info">
+    <p>IP: </p>
+    <p>City: </p>
+    <p>Region: </p>
+    <p>Country: </p>
+    <p>Organization: </p>
+    <p>Timezone: </p>
+  </div>
+
+  <!-- رابط Discord -->
+  <a class="discord-link" href="https://discord.gg/Q1" target="_blank">discord.gg/Q1</a>
+
+  <!-- إضافة عنصر الصوت -->
+  <audio id="background-sound" loop>
+    <source src="https://cdn.discordapp.com/attachments/1294666102714007637/1304819746025242634/3447ec0838448265.mp3?ex=6730c795&is=672f7615&hm=3a291726de27d063a83c546fa39721c28a9028339d0f93063a3ac9d810f921d6&" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    // تشغيل الصوت تلقائيًا عند تحميل الصفحة
+    window.onload = function() {
+      var audio = document.getElementById('background-sound');
+      audio.play(); // تشغيل الصوت
+    };
+
+    // الحصول على بيانات IP وعرضها بدون الحاجة للتوكن
+    fetch('https://ipinfo.io/json')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('ip-info').innerHTML = `
+          <p>IP: ${data.ip}</p>
+          <p>City: ${data.city}</p>
+          <p>Region: ${data.region}</p>
+          <p>Country: ${data.country}</p>
+          <p>Organization: ${data.org}</p>
+          <p>Timezone: ${data.timezone}</p>
+        `;
+      })
+      .catch(error => console.error('Error fetching IP info:', error));
+
+    // إضافة النجوم إلى الخلفية
+    for (let i = 0; i < 100; i++) {
+      let star = document.createElement("div");
+      star.classList.add("stars");
+      star.style.top = Math.random() * 100 + "vh";
+      star.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(star);
+    }
+  </script>
+</body>
+</html>
+</body>
+</html>
+
